@@ -16,11 +16,14 @@
 
 package android.support.v17.leanback.widget;
 
+import java.util.ArrayList;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -31,8 +34,6 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
-
-import java.util.ArrayList;
 
 /**
  * A card style layout that responds to certain state changes. It arranges its
@@ -358,11 +359,11 @@ public class BaseCardView extends FrameLayout {
                 measureChild(mainView, unspecifiedSpec, unspecifiedSpec);
                 mMeasuredWidth = Math.max(mMeasuredWidth, mainView.getMeasuredWidth());
                 mainHeight += mainView.getMeasuredHeight();
-                state = View.combineMeasuredStates(state, mainView.getMeasuredState());
+                state = ViewCompat.combineMeasuredStates(state, ViewCompat.getMeasuredState(mainView));
             }
         }
-        setPivotX(mMeasuredWidth / 2);
-        setPivotY(mainHeight / 2);
+        ViewCompat.setPivotX(this, mMeasuredWidth / 2);
+        ViewCompat.setPivotY(this, mainHeight / 2);
 
 
         // The MAIN area determines the card width
@@ -376,7 +377,7 @@ public class BaseCardView extends FrameLayout {
                     if (mCardType != CARD_TYPE_INFO_OVER) {
                         infoHeight += infoView.getMeasuredHeight();
                     }
-                    state = View.combineMeasuredStates(state, infoView.getMeasuredState());
+                    state = ViewCompat.combineMeasuredStates(state, ViewCompat.getMeasuredState(infoView));
                 }
             }
 
@@ -386,7 +387,7 @@ public class BaseCardView extends FrameLayout {
                     if (extraView.getVisibility() != View.GONE) {
                         measureChild(extraView, cardWidthMeasureSpec, unspecifiedSpec);
                         extraHeight += extraView.getMeasuredHeight();
-                        state = View.combineMeasuredStates(state, extraView.getMeasuredState());
+                        state = ViewCompat.combineMeasuredStates(state, ViewCompat.getMeasuredState(extraView));
                     }
                 }
             }
@@ -398,9 +399,9 @@ public class BaseCardView extends FrameLayout {
                 + extraHeight - (infoAnimating ? 0 : mInfoOffset));
 
         // Report our final dimensions.
-        setMeasuredDimension(View.resolveSizeAndState(mMeasuredWidth + getPaddingLeft() +
+        setMeasuredDimension(ViewCompat.resolveSizeAndState(mMeasuredWidth + getPaddingLeft() +
                 getPaddingRight(), widthMeasureSpec, state),
-                View.resolveSizeAndState(mMeasuredHeight + getPaddingTop() + getPaddingBottom(),
+                ViewCompat.resolveSizeAndState(mMeasuredHeight + getPaddingTop() + getPaddingBottom(),
                         heightMeasureSpec, state << View.MEASURED_HEIGHT_STATE_SHIFT));
     }
 
@@ -498,9 +499,9 @@ public class BaseCardView extends FrameLayout {
             case CARD_REGION_VISIBLE_ALWAYS:
                 return true;
             case CARD_REGION_VISIBLE_ACTIVATED:
-                return isActivated();
+                return ViewCompat.isActivated(this);
             case CARD_REGION_VISIBLE_SELECTED:
-                return isActivated() && isSelected();
+                return ViewCompat.isActivated(this) && isSelected();
             default:
                 if (DEBUG) Log.e(TAG, "invalid region visibility state: " + regionVisibility);
                 return false;
@@ -899,7 +900,7 @@ public class BaseCardView extends FrameLayout {
         protected void applyTransformation(float interpolatedTime, Transformation t) {
             mInfoAlpha = mStartValue + (interpolatedTime * mDelta);
             for (int i = 0; i < mInfoViewList.size(); i++) {
-                mInfoViewList.get(i).setAlpha(mInfoAlpha);
+                ViewCompat.setAlpha(mInfoViewList.get(i), mInfoAlpha);
             }
         }
     }

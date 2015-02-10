@@ -21,6 +21,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.DrawableCompat;
+import android.support.v7.compat.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -91,8 +93,8 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
             showMoreLeft(false);
         }
 
-        final View.OnLayoutChangeListener mLayoutChangeListener =
-                new View.OnLayoutChangeListener() {
+        final ViewCompat.OnLayoutChangeListener mLayoutChangeListener =
+                new ViewCompat.OnLayoutChangeListener() {
 
             @Override
             public void onLayoutChange(View v, int left, int top, int right,
@@ -167,12 +169,12 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
             @Override
             public void onAttachedToWindow(ItemBridgeAdapter.ViewHolder viewHolder) {
                 // Remove first to ensure we don't add ourselves more than once.
-                viewHolder.itemView.removeOnLayoutChangeListener(mLayoutChangeListener);
-                viewHolder.itemView.addOnLayoutChangeListener(mLayoutChangeListener);
+                ViewCompat.removeOnLayoutChangeListener(viewHolder.itemView, mLayoutChangeListener);
+                ViewCompat.addOnLayoutChangeListener(viewHolder.itemView, mLayoutChangeListener);
             }
             @Override
             public void onDetachedFromWindow(ItemBridgeAdapter.ViewHolder viewHolder) {
-                viewHolder.itemView.removeOnLayoutChangeListener(mLayoutChangeListener);
+                ViewCompat.removeOnLayoutChangeListener(viewHolder.itemView, mLayoutChangeListener);
                 checkFirstAndLastPosition(false);
             }
         };
@@ -470,8 +472,8 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
             layoutParams.leftMargin = horizontalMargin;
             layoutParams.topMargin = layoutParams.bottomMargin = verticalMargin;
             RoundedRectHelper.getInstance().setRoundedRectBackground(vh.mOverviewFrame, bgColor);
-            vh.mRightPanel.setBackground(null);
-            vh.mImageView.setBackground(null);
+            ViewCompat.setBackground(vh.mRightPanel, null);
+            ViewCompat.setBackground(vh.mImageView, null);
         } else {
             layoutParams.leftMargin = layoutParams.topMargin = layoutParams.bottomMargin = 0;
             vh.mRightPanel.setBackgroundColor(bgColor);
@@ -527,7 +529,7 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
         if (getSelectEffectEnabled()) {
             ViewHolder vh = (ViewHolder) holder;
             int dimmedColor = vh.mColorDimmer.getPaint().getColor();
-            ((ColorDrawable) vh.mOverviewFrame.getForeground().mutate()).setColor(dimmedColor);
+            DrawableCompat.setColor(((ColorDrawable) vh.mOverviewFrame.getForeground().mutate()), dimmedColor);
         }
     }
 }

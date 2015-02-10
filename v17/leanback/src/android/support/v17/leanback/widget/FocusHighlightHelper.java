@@ -13,17 +13,19 @@
  */
 package android.support.v17.leanback.widget;
 
+import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_LARGE;
+import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_MEDIUM;
+import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_NONE;
+import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_SMALL;
+import android.content.res.Resources;
 import android.support.v17.leanback.R;
 import android.support.v17.leanback.graphics.ColorOverlayDimmer;
+import android.support.v7.compat.ViewCompat;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.animation.TimeAnimator;
-import android.content.res.Resources;
-import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_NONE;
-import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_SMALL;
-import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_MEDIUM;
-import static android.support.v17.leanback.widget.FocusHighlight.ZOOM_FACTOR_LARGE;
+
+import com.nineoldandroids.animation.TimeAnimator;
 
 /**
  * Setup the behavior how to highlight when a item gains focus.
@@ -74,8 +76,8 @@ public class FocusHighlightHelper {
         void setFocusLevel(float level) {
             mFocusLevel = level;
             float scale = 1f + mScaleDiff * level;
-            mView.setScaleX(scale);
-            mView.setScaleY(scale);
+            ViewCompat.setScaleX(mView, scale);
+            ViewCompat.setScaleY(mView, scale);
             if (mWrapper != null) {
                 mWrapper.setShadowFocusLevel(level);
                 if (mDimmer != null) {

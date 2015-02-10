@@ -44,6 +44,8 @@ import android.widget.ImageView;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.AudioManagerCompat;
+import android.support.v7.compat.SpeechRecognizerCompat;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -94,8 +96,8 @@ public class SearchBar extends RelativeLayout {
         public void onKeyboardDismiss(String query);
     }
 
-    private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener =
-            new AudioManager.OnAudioFocusChangeListener() {
+    private AudioManagerCompat.OnAudioFocusChangeListener mAudioFocusChangeListener =
+            new AudioManagerCompat.OnAudioFocusChangeListener() {
                 @Override
                 public void onAudioFocusChange(int focusChange) {
                     // Do nothing.
@@ -422,9 +424,9 @@ public class SearchBar extends RelativeLayout {
      */
     public void setSpeechRecognizer(SpeechRecognizer recognizer) {
         if (null != mSpeechRecognizer) {
-            mSpeechRecognizer.setRecognitionListener(null);
+            SpeechRecognizerCompat.setRecognitionListener(mSpeechRecognizer, null);
             if (mListening) {
-                mSpeechRecognizer.cancel();
+                SpeechRecognizerCompat.cancel(mSpeechRecognizer);
                 mListening = false;
             }
         }
@@ -506,12 +508,12 @@ public class SearchBar extends RelativeLayout {
         mSpeechOrbView.showNotListening();
 
         if (mListening) {
-            mSpeechRecognizer.cancel();
+            SpeechRecognizerCompat.cancel(mSpeechRecognizer);
             mListening = false;
-            mAudioManager.abandonAudioFocus(mAudioFocusChangeListener);
+            AudioManagerCompat.abandonAudioFocus(mAudioManager, mAudioFocusChangeListener);
         }
 
-        mSpeechRecognizer.setRecognitionListener(null);
+        SpeechRecognizerCompat.setRecognitionListener(mSpeechRecognizer, null);
     }
 
     /**
@@ -534,7 +536,7 @@ public class SearchBar extends RelativeLayout {
         if (null == mSpeechRecognizer) return;
 
         // Request audio focus
-        int result = mAudioManager.requestAudioFocus(mAudioFocusChangeListener,
+        int result = AudioManagerCompat.requestAudioFocus(mAudioManager, mAudioFocusChangeListener,
                 // Use the music stream.
                 AudioManager.STREAM_MUSIC,
                 // Request exclusive transient focus.
@@ -553,7 +555,7 @@ public class SearchBar extends RelativeLayout {
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
 
-        mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
+        SpeechRecognizerCompat.setRecognitionListener(mSpeechRecognizer, new SpeechRecognizerCompat.RecognitionListener() {
             @Override
             public void onReadyForSpeech(Bundle bundle) {
                 if (DEBUG) Log.v(TAG, "onReadyForSpeech");
@@ -670,7 +672,7 @@ public class SearchBar extends RelativeLayout {
         });
 
         mListening = true;
-        mSpeechRecognizer.startListening(recognizerIntent);
+        SpeechRecognizerCompat.startListening(mSpeechRecognizer, recognizerIntent);
     }
 
     private void updateUi() {

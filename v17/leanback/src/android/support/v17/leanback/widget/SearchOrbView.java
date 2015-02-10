@@ -16,8 +16,6 @@
 
 package android.support.v17.leanback.widget;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -26,11 +24,15 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.nineoldandroids.animation.ArgbEvaluator;
+import com.nineoldandroids.animation.ValueAnimator;
 
 /**
  * <p>A widget that draws a search affordance, represented by a round background and an icon.</p>
@@ -207,8 +209,8 @@ public class SearchOrbView extends FrameLayout implements View.OnClickListener {
     }
 
     void scaleOrbViewOnly(float scale) {
-        mSearchOrbView.setScaleX(scale);
-        mSearchOrbView.setScaleY(scale);
+        ViewCompat.setScaleX(mSearchOrbView, scale);
+        ViewCompat.setScaleY(mSearchOrbView, scale);
     }
 
     float getFocusedZoom() {
@@ -311,7 +313,7 @@ public class SearchOrbView extends FrameLayout implements View.OnClickListener {
      */
     public void setOrbColors(Colors colors) {
         mColors = colors;
-        mIcon.setColorFilter(mColors.iconColor);
+        ViewCompat.setColorFilter(mIcon, mColors.iconColor);
 
         if (mColorAnimator == null) {
             setOrbViewColor(mColors.color);

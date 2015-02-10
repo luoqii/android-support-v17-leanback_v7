@@ -38,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.support.v17.leanback.R;
 import android.support.v4.app.Fragment;
+import android.support.v7.compat.SpeechRecognizerCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -341,7 +342,7 @@ public class SearchFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (mSpeechRecognitionCallback == null && null == mSpeechRecognizer) {
-            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getActivity());
+            mSpeechRecognizer = SpeechRecognizerCompat.createSpeechRecognizer(getActivity());
             mSearchBar.setSpeechRecognizer(mSpeechRecognizer);
         }
     }
@@ -361,7 +362,7 @@ public class SearchFragment extends Fragment {
     private void releaseRecognizer() {
         if (null != mSpeechRecognizer) {
             mSearchBar.setSpeechRecognizer(null);
-            mSpeechRecognizer.destroy();
+            SpeechRecognizerCompat.destroy(mSpeechRecognizer);
             mSpeechRecognizer = null;
         }
     }

@@ -25,6 +25,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -375,10 +376,10 @@ public class HorizontalGridView extends BaseGridView {
      */
     private void updateLayerType() {
         if (mFadingLowEdge || mFadingHighEdge) {
-            setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            ViewCompat.setLayerType(this, View.LAYER_TYPE_HARDWARE, null);
             setWillNotDraw(false);
         } else {
-            setLayerType(View.LAYER_TYPE_NONE, null);
+            ViewCompat.setLayerType(this, View.LAYER_TYPE_NONE, null);
             setWillNotDraw(true);
         }
     }

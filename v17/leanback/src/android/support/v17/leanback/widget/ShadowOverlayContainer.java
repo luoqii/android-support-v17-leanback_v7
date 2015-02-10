@@ -15,6 +15,7 @@ package android.support.v17.leanback.widget;
 
 import android.content.Context;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -210,11 +211,11 @@ public class ShadowOverlayContainer extends ViewGroup {
             }
         }
         if (mWrappedView != null) {
-            sTempRect.left = (int) mWrappedView.getPivotX();
-            sTempRect.top = (int) mWrappedView.getPivotY();
+            sTempRect.left = (int) ViewCompat.getPivotX(mWrappedView);
+            sTempRect.top = (int) ViewCompat.getPivotY(mWrappedView);
             offsetDescendantRectToMyCoords(mWrappedView, sTempRect);
-            setPivotX(sTempRect.left);
-            setPivotY(sTempRect.top);
+            ViewCompat.setPivotX(this, sTempRect.left);
+            ViewCompat.setPivotY(this, sTempRect.top);
         }
     }
 

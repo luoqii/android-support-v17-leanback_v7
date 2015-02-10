@@ -19,6 +19,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.view.View;
 
 /**
@@ -147,10 +148,10 @@ public final class ColorOverlayDimmer {
      */
     public void drawColorOverlay(Canvas c, View v, boolean includePadding) {
         c.save();
-        float dx = v.getLeft() + v.getTranslationX();
-        float dy = v.getTop() + v.getTranslationY();
+        float dx = v.getLeft() + ViewCompat.getTranslationX(v);
+        float dy = v.getTop() + ViewCompat.getTranslationY(v);
         c.translate(dx, dy);
-        c.concat(v.getMatrix());
+        c.concat(ViewCompat.getMatrix(v));
         c.translate(-dx, -dy);
         if (includePadding) {
             c.drawRect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom(), mPaint);

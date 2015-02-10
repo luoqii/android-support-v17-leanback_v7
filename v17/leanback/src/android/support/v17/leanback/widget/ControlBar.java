@@ -13,10 +13,12 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.v4.view.MarginLayoutParamsCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -34,7 +36,8 @@ class ControlBar extends LinearLayout {
         super(context, attrs);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @SuppressLint("Instantiatable")
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public ControlBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -79,8 +82,8 @@ class ControlBar extends LinearLayout {
             int measuredWidth = first.getMeasuredWidth() + second.getMeasuredWidth();
             int marginStart = mChildMarginFromCenter - measuredWidth / 2;
             LayoutParams lp = (LayoutParams) second.getLayoutParams();
-            int extraMargin = marginStart - lp.getMarginStart();
-            lp.setMarginStart(marginStart);
+            int extraMargin = marginStart - MarginLayoutParamsCompat.getMarginStart(lp);
+            MarginLayoutParamsCompat.setMarginStart(lp, marginStart);
             second.setLayoutParams(lp);
             totalExtraMargin += extraMargin;
         }

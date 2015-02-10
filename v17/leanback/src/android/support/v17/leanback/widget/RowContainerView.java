@@ -13,11 +13,13 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +39,13 @@ final class RowContainerView extends LinearLayout {
         this(context, null, 0);
     }
 
-    public RowContainerView(Context context, AttributeSet attrs) {
+    @SuppressLint("NewApi")
+	public RowContainerView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RowContainerView(Context context, AttributeSet attrs, int defStyle) {
+    @SuppressLint("NewApi")
+	public RowContainerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setOrientation(VERTICAL);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -79,7 +83,7 @@ final class RowContainerView extends LinearLayout {
 
     public void setForegroundColor(int color) {
         if (mForeground instanceof ColorDrawable) {
-            ((ColorDrawable) mForeground.mutate()).setColor(color);
+            DrawableCompat.setColor(((ColorDrawable) mForeground.mutate()), color);
             invalidate();
         } else {
             setForeground(new ColorDrawable(color));

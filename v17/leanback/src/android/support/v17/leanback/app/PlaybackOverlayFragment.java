@@ -13,39 +13,38 @@
  */
 package android.support.v17.leanback.app;
 
+import java.util.ArrayList;
+
+import android.animation.TimeInterpolator;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.TimeInterpolator;
-import android.animation.ValueAnimator;
-import android.view.animation.AccelerateInterpolator;
-import android.animation.ValueAnimator.AnimatorUpdateListener;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.RecyclerView;
 import android.support.v17.leanback.R;
 import android.support.v17.leanback.animation.LogAccelerateInterpolator;
 import android.support.v17.leanback.animation.LogDecelerateInterpolator;
-import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.ItemBridgeAdapter;
 import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.ObjectAdapter.DataObserver;
-import android.support.v17.leanback.widget.VerticalGridView;
 import android.support.v17.leanback.widget.PlaybackControlsRowPresenter;
+import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.VerticalGridView;
+import android.support.v7.compat.ViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
-import android.view.animation.Interpolator;
-import android.view.animation.LinearInterpolator;
+import android.view.animation.AccelerateInterpolator;
 
-import java.util.ArrayList;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorInflater;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.animation.ValueAnimator.AnimatorUpdateListener;
 
 /**
  * A fragment for displaying playback controls and related content.
@@ -482,7 +481,7 @@ public class PlaybackOverlayFragment extends DetailsFragment {
         if (fadeIn && mFadingStatus == IDLE) {
             final int count = getVerticalGridView().getChildCount();
             for (int i = 0; i < count; i++) {
-                getVerticalGridView().getChildAt(i).setTranslationY(mAnimationTranslateY);
+                ViewCompat.setTranslationY(getVerticalGridView().getChildAt(i), mAnimationTranslateY);
             }
         }
 
@@ -587,7 +586,7 @@ public class PlaybackOverlayFragment extends DetailsFragment {
                 case BG_LIGHT: color = mBgLightColor; break;
                 case BG_NONE: color = Color.TRANSPARENT; break;
             }
-            mRootView.setBackground(new ColorDrawable(color));
+            ViewCompat.setBackground(mRootView, new ColorDrawable(color));
         }
     }
 
@@ -612,7 +611,7 @@ public class PlaybackOverlayFragment extends DetailsFragment {
             if (DEBUG) Log.v(TAG, "onAttachedToWindow " + vh.getViewHolder().view);
             if ((mFadingStatus == IDLE && mBgAlpha == 0) || mFadingStatus == OUT) {
                 if (DEBUG) Log.v(TAG, "setting alpha to 0");
-                vh.getViewHolder().view.setAlpha(0);
+                ViewCompat.setAlpha(vh.getViewHolder().view, 0);
             }
             if (vh.getPosition() == 0 && mResetControlsToPrimaryActionsPending) {
                 resetControlsToPrimaryActions(vh);
@@ -622,13 +621,13 @@ public class PlaybackOverlayFragment extends DetailsFragment {
         public void onDetachedFromWindow(ItemBridgeAdapter.ViewHolder vh) {
             if (DEBUG) Log.v(TAG, "onDetachedFromWindow " + vh.getViewHolder().view);
             // Reset animation state
-            vh.getViewHolder().view.setAlpha(1f);
-            vh.getViewHolder().view.setTranslationY(0);
+            ViewCompat.setAlpha(vh.getViewHolder().view, 1f);
+            ViewCompat.setTranslationY(vh.getViewHolder().view, 0);
             if (vh.getViewHolder() instanceof PlaybackControlsRowPresenter.ViewHolder) {
                 Presenter.ViewHolder descriptionVh = ((PlaybackControlsRowPresenter.ViewHolder)
                         vh.getViewHolder()).mDescriptionViewHolder;
                 if (descriptionVh != null) {
-                    descriptionVh.view.setAlpha(1f);
+                    ViewCompat.setAlpha(descriptionVh.view,1f);
                 }
             }
         }
@@ -673,13 +672,13 @@ public class PlaybackOverlayFragment extends DetailsFragment {
         public void onAnimationStart(Animator animation) {
             getViews(mViews);
             for (View view : mViews) {
-                mLayerType.add(view.getLayerType());
-                view.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                mLayerType.add(ViewCompat.getLayerType(view));
+                ViewCompat.setLayerType(view, View.LAYER_TYPE_HARDWARE, null);
             }
         }
         public void onAnimationEnd(Animator animation) {
             for (int i = 0; i < mViews.size(); i++) {
-                mViews.get(i).setLayerType(mLayerType.get(i), null);
+                ViewCompat.setLayerType(mViews.get(i), mLayerType.get(i), null);
             }
             mLayerType.clear();
             mViews.clear();

@@ -15,21 +15,19 @@ package android.support.v17.leanback.app;
 
 import java.util.ArrayList;
 
-import android.animation.TimeAnimator;
-import android.animation.TimeAnimator.TimeListener;
 import android.os.Bundle;
 import android.support.v17.leanback.R;
+import android.support.v17.leanback.widget.HorizontalGridView;
 import android.support.v17.leanback.widget.ItemBridgeAdapter;
+import android.support.v17.leanback.widget.ListRowPresenter;
+import android.support.v17.leanback.widget.OnItemClickedListener;
+import android.support.v17.leanback.widget.OnItemSelectedListener;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.OnItemViewSelectedListener;
-import android.support.v17.leanback.widget.RowPresenter.ViewHolder;
-import android.support.v17.leanback.widget.VerticalGridView;
-import android.support.v17.leanback.widget.HorizontalGridView;
-import android.support.v17.leanback.widget.OnItemSelectedListener;
-import android.support.v17.leanback.widget.OnItemClickedListener;
-import android.support.v17.leanback.widget.RowPresenter;
-import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.RowPresenter;
+import android.support.v17.leanback.widget.VerticalGridView;
+import android.support.v7.compat.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +35,9 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
+
+import com.nineoldandroids.animation.TimeAnimator;
+import com.nineoldandroids.animation.TimeAnimator.TimeListener;
 
 /**
  * An ordered set of rows of leanback widgets.
@@ -491,8 +492,8 @@ public class RowsFragment extends BaseRowFragment {
         view.setPrimaryOverReach((mRowScaleEnabled && scale) ? 1f / mRowScaleFactor : 1f);
 
         final float scaleFactor = (mRowScaleEnabled && scale) ? mRowScaleFactor : 1f;
-        view.setScaleX(scaleFactor);
-        view.setScaleY(scaleFactor);
+        ViewCompat.setScaleX(view, scaleFactor);
+        ViewCompat.setScaleY(view, scaleFactor);
     }
 
     @Override

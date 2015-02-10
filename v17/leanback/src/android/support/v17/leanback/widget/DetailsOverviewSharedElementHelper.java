@@ -13,21 +13,20 @@
  */
 package android.support.v17.leanback.widget;
 
+import java.util.List;
+
+import android.app.Activity;
 import android.os.Handler;
+import android.support.v17.leanback.transition.TransitionHelper;
+import android.support.v17.leanback.transition.TransitionListener;
+import android.support.v17.leanback.widget.DetailsOverviewRowPresenter.ViewHolder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.SharedElementCallback;
-import android.support.v4.view.ViewCompat;
-import android.support.v17.leanback.R;
-import android.support.v17.leanback.transition.TransitionListener;
-import android.support.v17.leanback.transition.TransitionHelper;
-import android.support.v17.leanback.widget.DetailsOverviewRowPresenter.ViewHolder;
-import android.app.Activity;
+import android.support.v7.compat.ViewCompat;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.MeasureSpec;
-
-import java.util.List;
+import android.view.ViewGroup;
 
 final class DetailsOverviewSharedElementHelper extends SharedElementCallback {
 
@@ -121,17 +120,17 @@ final class DetailsOverviewSharedElementHelper extends SharedElementCallback {
         // We want right panel to have fixed size so that the right panel don't change size
         // when the overview is layout as a small bounds in transition.
         mViewHolder = vh;
-        mViewHolder.mRightPanel.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        ViewCompat.addOnLayoutChangeListener(mViewHolder.mRightPanel, new ViewCompat.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
                     int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                mViewHolder.mRightPanel.removeOnLayoutChangeListener(this);
+                ViewCompat.removeOnLayoutChangeListener(mViewHolder.mRightPanel, this);
                 mRightPanelWidth = mViewHolder.mRightPanel.getWidth();
                 mRightPanelHeight = mViewHolder.mRightPanel.getHeight();
             }
         });
         if (mActivityToRunTransition != null) {
-            mViewHolder.mRightPanel.postOnAnimation(new Runnable() {
+            ViewCompat.postOnAnimation(mViewHolder.mRightPanel, new Runnable() {
                 @Override
                 public void run() {
                     if (mActivityToRunTransition == null) {

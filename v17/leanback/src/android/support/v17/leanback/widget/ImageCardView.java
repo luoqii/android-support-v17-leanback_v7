@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -106,7 +107,7 @@ public class ImageCardView extends BaseCardView {
         mImageView.setImageDrawable(drawable);
         if (drawable == null) {
             mImageView.animate().cancel();
-            mImageView.setAlpha(1f);
+            ViewCompat.setAlpha(mImageView, 1f);
             mImageView.setVisibility(View.INVISIBLE);
         } else {
             mImageView.setVisibility(View.VISIBLE);
@@ -114,7 +115,7 @@ public class ImageCardView extends BaseCardView {
                 fadeIn(mImageView);
             } else {
                 mImageView.animate().cancel();
-                mImageView.setAlpha(1f);
+                ViewCompat.setAlpha(mImageView, 1f);
             }
         }
     }
@@ -143,9 +144,9 @@ public class ImageCardView extends BaseCardView {
 
     public void setInfoAreaBackground(Drawable drawable) {
         if (mInfoArea != null) {
-            mInfoArea.setBackground(drawable);
+            ViewCompat.setBackground(mInfoArea, drawable);
             if (mBadgeImage != null) {
-                mBadgeImage.setBackground(drawable);
+                ViewCompat.setBackground(mBadgeImage, drawable);
             }
         }
     }
@@ -217,7 +218,7 @@ public class ImageCardView extends BaseCardView {
     }
 
     private void fadeIn(View v) {
-        v.setAlpha(0f);
+        ViewCompat.setAlpha(v, 0f);
         v.animate().alpha(1f).setDuration(v.getContext().getResources().getInteger(
                 android.R.integer.config_shortAnimTime)).start();
     }
@@ -243,7 +244,7 @@ public class ImageCardView extends BaseCardView {
     @Override
     protected void onDetachedFromWindow() {
         mImageView.animate().cancel();
-        mImageView.setAlpha(1f);
+        ViewCompat.setAlpha(mImageView, 1f);
         super.onDetachedFromWindow();
     }
 }

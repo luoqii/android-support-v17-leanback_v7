@@ -13,10 +13,13 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
+import android.os.Build;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -178,7 +181,7 @@ abstract class BaseGridView extends RecyclerView {
         setHasFixedSize(true);
         setChildrenDrawingOrderEnabled(true);
         setWillNotDraw(true);
-        setOverScrollMode(View.OVER_SCROLL_NEVER);
+        ViewCompat.setOverScrollMode(this, View.OVER_SCROLL_NEVER);
     }
 
     protected void initBaseGridViewAttributes(Context context, AttributeSet attrs) {
@@ -627,7 +630,8 @@ abstract class BaseGridView extends RecyclerView {
         return super.dispatchTouchEvent(event);
     }
 
-    @Override
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+	@Override
     public boolean dispatchGenericFocusedEvent(MotionEvent event) {
         if (mOnMotionInterceptListener != null) {
             if (mOnMotionInterceptListener.onInterceptMotionEvent(event)) {

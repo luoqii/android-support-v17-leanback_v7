@@ -14,6 +14,7 @@
 package android.support.v17.leanback.widget;
 
 import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -234,7 +235,7 @@ public class VerticalGridPresenter extends Presenter {
 
             @Override
             public void onAttachedToWindow(ItemBridgeAdapter.ViewHolder viewHolder) {
-                viewHolder.itemView.setActivated(true);
+                ViewCompat.setActivated(viewHolder.itemView, true);
             }
         });
     }

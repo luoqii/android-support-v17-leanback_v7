@@ -28,6 +28,8 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowHeaderPresenter;
 import android.support.v17.leanback.widget.SinglePresenterSelector;
 import android.support.v17.leanback.widget.VerticalGridView;
+import android.support.v7.compat.DrawableCompat;
+import android.support.v7.compat.ViewCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,20 +100,20 @@ public class HeadersFragment extends BaseRowFragment {
             headerView.setFocusable(true);
             headerView.setFocusableInTouchMode(true);
             if (mWrapper != null) {
-                viewHolder.itemView.addOnLayoutChangeListener(sLayoutChangeListener);
+                ViewCompat.addOnLayoutChangeListener(viewHolder.itemView, sLayoutChangeListener);
             } else {
-                headerView.addOnLayoutChangeListener(sLayoutChangeListener);
+                ViewCompat.addOnLayoutChangeListener(headerView, sLayoutChangeListener);
             }
         }
 
     };
 
-    private static OnLayoutChangeListener sLayoutChangeListener = new OnLayoutChangeListener() {
+    private static ViewCompat.OnLayoutChangeListener sLayoutChangeListener = new ViewCompat.OnLayoutChangeListener() {
         @Override
         public void onLayoutChange(View v, int left, int top, int right, int bottom,
             int oldLeft, int oldTop, int oldRight, int oldBottom) {
-            v.setPivotX(0);
-            v.setPivotY(v.getMeasuredHeight() / 2);
+            ViewCompat.setPivotX(v, 0);
+            ViewCompat.setPivotY(v, v.getMeasuredHeight() / 2);
         }
     };
 
@@ -215,7 +217,7 @@ public class HeadersFragment extends BaseRowFragment {
         Drawable background = fadingView.getBackground();
         if (background instanceof GradientDrawable) {
             background.mutate();
-            ((GradientDrawable) background).setColors(
+            DrawableCompat.setColors(((GradientDrawable) background),
                     new int[] {Color.TRANSPARENT, backgroundColor});
         }
     }

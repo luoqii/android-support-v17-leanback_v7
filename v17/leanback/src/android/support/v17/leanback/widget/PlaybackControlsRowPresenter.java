@@ -16,6 +16,7 @@ package android.support.v17.leanback.widget;
 import android.support.v17.leanback.R;
 import android.support.v17.leanback.widget.ControlBarPresenter.OnControlClickedListener;
 import android.support.v17.leanback.widget.ControlBarPresenter.OnControlSelectedListener;
+import android.support.v4.view.MarginLayoutParamsCompat;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.TypedValue;
@@ -316,8 +317,8 @@ public class PlaybackControlsRowPresenter extends RowPresenter {
         vh.mCardHeight = vh.mCard.getLayoutParams().height;
 
         MarginLayoutParams lp = (MarginLayoutParams) vh.mControlsDock.getLayoutParams();
-        vh.mControlsDockMarginStart = lp.getMarginStart();
-        vh.mControlsDockMarginEnd = lp.getMarginEnd();
+        vh.mControlsDockMarginStart = MarginLayoutParamsCompat.getMarginStart(lp);
+        vh.mControlsDockMarginEnd = MarginLayoutParamsCompat.getMarginEnd(lp);
 
         vh.mControlsVh = (PlaybackControlsPresenter.ViewHolder)
                 mPlaybackControlsPresenter.onCreateViewHolder(vh.mControlsDock);
@@ -362,14 +363,14 @@ public class PlaybackControlsRowPresenter extends RowPresenter {
         MarginLayoutParams lp = (MarginLayoutParams) vh.mControlsDock.getLayoutParams();
         if (row.getImageDrawable() == null || row.getItem() == null) {
             vh.setBackground(vh.mControlsDock);
-            lp.setMarginStart(0);
-            lp.setMarginEnd(0);
+            MarginLayoutParamsCompat.setMarginStart(lp, 0);
+            MarginLayoutParamsCompat.setMarginEnd(lp, 0);
             mPlaybackControlsPresenter.enableTimeMargins(vh.mControlsVh, true);
         } else {
             vh.mImageView.setImageDrawable(row.getImageDrawable());
             vh.setBackground(vh.mCard);
-            lp.setMarginStart(vh.mControlsDockMarginStart);
-            lp.setMarginEnd(vh.mControlsDockMarginEnd);
+            MarginLayoutParamsCompat.setMarginStart(lp, vh.mControlsDockMarginStart);
+            MarginLayoutParamsCompat.setMarginEnd(lp, vh.mControlsDockMarginEnd);
             mPlaybackControlsPresenter.enableTimeMargins(vh.mControlsVh, false);
         }
         vh.mControlsDock.setLayoutParams(lp);

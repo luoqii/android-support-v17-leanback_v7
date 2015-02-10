@@ -15,6 +15,7 @@ package android.support.v17.leanback.widget;
 
 import android.support.v17.leanback.app.HeadersFragment;
 import android.support.v17.leanback.graphics.ColorOverlayDimmer;
+import android.support.v7.compat.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -262,7 +263,7 @@ public abstract class RowPresenter extends Presenter {
      */
     protected void onRowViewExpanded(ViewHolder vh, boolean expanded) {
         updateHeaderViewVisibility(vh);
-        vh.view.setActivated(expanded);
+        ViewCompat.setActivated(vh.view, expanded);
     }
 
     /**

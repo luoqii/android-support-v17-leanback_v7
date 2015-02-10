@@ -15,10 +15,6 @@ package android.support.v17.leanback.app;
 
 import java.lang.ref.WeakReference;
 
-import android.support.v17.leanback.R;
-import android.animation.Animator;
-import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -32,6 +28,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Handler;
+import android.support.v17.leanback.R;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.compat.DrawableCompat;
+import android.support.v7.compat.ViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
-import android.support.v4.content.ContextCompat;
+
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.ValueAnimator;
 
 /**
  * Supports background image continuity between multiple Activities.
@@ -336,8 +339,8 @@ public final class BackgroundManager {
      * Activity. Subsequent calls will return the same BackgroundManager created
      * for this Activity.
      */
-    public static BackgroundManager getInstance(Activity activity) {
-        BackgroundFragment fragment = (BackgroundFragment) activity.getFragmentManager()
+    public static BackgroundManager getInstance(FragmentActivity activity) {
+        BackgroundFragment fragment = (BackgroundFragment) activity.getSupportFragmentManager()
                 .findFragmentByTag(FRAGMENT_TAG);
         if (fragment != null) {
             BackgroundManager manager = fragment.getBackgroundManager();
@@ -350,7 +353,7 @@ public final class BackgroundManager {
         return new BackgroundManager(activity);
     }
 
-    private BackgroundManager(Activity activity) {
+    private BackgroundManager(FragmentActivity activity) {
         mContext = activity;
         mService = BackgroundContinuityService.getInstance();
         mHeightPx = mContext.getResources().getDisplayMetrics().heightPixels;
@@ -368,13 +371,13 @@ public final class BackgroundManager {
         createFragment(activity);
     }
 
-    private void createFragment(Activity activity) {
+    private void createFragment(FragmentActivity activity) {
         // Use a fragment to ensure the background manager gets detached properly.
-        BackgroundFragment fragment = (BackgroundFragment) activity.getFragmentManager()
+        BackgroundFragment fragment = (BackgroundFragment) activity.getSupportFragmentManager()
                 .findFragmentByTag(FRAGMENT_TAG);
         if (fragment == null) {
             fragment = new BackgroundFragment();
-            activity.getFragmentManager().beginTransaction().add(fragment, FRAGMENT_TAG).commit();
+            activity.getSupportFragmentManager().beginTransaction().add(fragment, FRAGMENT_TAG).commit();
         } else {
             if (fragment.getBackgroundManager() != null) {
                 throw new IllegalStateException("Created duplicated BackgroundManager for same " +
@@ -424,7 +427,7 @@ public final class BackgroundManager {
 
         mLayerDrawable = (LayerDrawable) ContextCompat.getDrawable(mContext,
                 R.drawable.lb_background).mutate();
-        mBgView.setBackground(mLayerDrawable);
+        ViewCompat.setBackground(mBgView, mLayerDrawable);
 
         mLayerDrawable.setDrawableByLayerId(R.id.background_imageout, createEmptyDrawable());
 
@@ -732,7 +735,7 @@ public final class BackgroundManager {
             return true;
         }
         if (first instanceof BitmapDrawable && second instanceof BitmapDrawable) {
-            if (((BitmapDrawable) first).getBitmap().sameAs(((BitmapDrawable) second).getBitmap())) {
+            if (DrawableCompat.sameAs(((BitmapDrawable) first).getBitmap(), ((BitmapDrawable) second).getBitmap())) {
                 return true;
             }
         }

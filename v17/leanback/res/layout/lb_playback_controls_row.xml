@@ -62,7 +62,7 @@
 
             <!-- Space here prevents room only for title and subtitle above -->
 
-            <Space
+            <android.support.v7.widget.Space
                 android:id="@+id/spacer"
                 android:layout_width="match_parent"
                 android:layout_height="12dp" />
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
 
-    <Space
+    <android.support.v7.widget.Space
         android:id="@+id/bottom_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/lb_playback_controls_margin_bottom" />

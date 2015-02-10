@@ -13,13 +13,20 @@
  */
 package android.support.v17.leanback.widget;
 
-import android.support.v17.leanback.R;
-import android.animation.ObjectAnimator;
+import java.util.List;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Build;
+import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -31,12 +38,8 @@ import android.util.Property;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import java.util.List;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 /**
  * Shows the recognized text as a continuous stream of words.
@@ -218,7 +221,8 @@ class StreamingTextView extends EditText {
     /**
      * This is required to make the View findable by uiautomator
      */
-    @Override
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+	@Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(StreamingTextView.class.getCanonicalName());
@@ -278,7 +282,7 @@ class StreamingTextView extends EditText {
 
     public static boolean isLayoutRtl(View view) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return View.LAYOUT_DIRECTION_RTL == view.getLayoutDirection();
+            return View.LAYOUT_DIRECTION_RTL == ViewCompat.getLayoutDirection(view);
         } else {
             return false;
         }

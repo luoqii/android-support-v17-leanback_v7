@@ -15,6 +15,7 @@ package android.support.v17.leanback.widget;
 
 import android.graphics.Paint;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +90,7 @@ public class RowHeaderPresenter extends Presenter {
     }
 
     protected void onSelectLevelChanged(ViewHolder holder) {
-        holder.view.setAlpha(holder.mUnselectAlpha + holder.mSelectLevel *
+        ViewCompat.setAlpha(holder.view, holder.mUnselectAlpha + holder.mSelectLevel *
                 (1f - holder.mUnselectAlpha));
     }
 

@@ -21,6 +21,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v17.leanback.R;
+import android.support.v4.view.MarginLayoutParamsCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,9 +87,9 @@ class PlaybackControlsPresenter extends ControlBarPresenter {
                 }
             };
             mCurrentTimeMarginStart =
-                    ((MarginLayoutParams) mCurrentTime.getLayoutParams()).getMarginStart();
+                    MarginLayoutParamsCompat.getMarginStart(((MarginLayoutParams) mCurrentTime.getLayoutParams()));
             mTotalTimeMarginEnd =
-                    ((MarginLayoutParams) mTotalTime.getLayoutParams()).getMarginEnd();
+            		MarginLayoutParamsCompat.getMarginEnd(((MarginLayoutParams) mTotalTime.getLayoutParams()));
         }
 
         void showMoreActions(boolean show) {
@@ -265,11 +266,11 @@ class PlaybackControlsPresenter extends ControlBarPresenter {
     public void enableTimeMargins(ViewHolder vh, boolean enable) {
         MarginLayoutParams lp;
         lp = (MarginLayoutParams) vh.mCurrentTime.getLayoutParams();
-        lp.setMarginStart(enable ? vh.mCurrentTimeMarginStart : 0);
+        MarginLayoutParamsCompat.setMarginStart(lp, enable ? vh.mCurrentTimeMarginStart : 0);
         vh.mCurrentTime.setLayoutParams(lp);
 
         lp = (MarginLayoutParams) vh.mTotalTime.getLayoutParams();
-        lp.setMarginEnd(enable ? vh.mTotalTimeMarginEnd : 0);
+        MarginLayoutParamsCompat.setMarginEnd(lp, enable ? vh.mTotalTimeMarginEnd : 0);
         vh.mTotalTime.setLayoutParams(lp);
     }
 

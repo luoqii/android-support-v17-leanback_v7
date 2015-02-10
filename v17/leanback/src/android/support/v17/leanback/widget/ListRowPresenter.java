@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v17.leanback.R;
 import android.support.v17.leanback.graphics.ColorOverlayDimmer;
+import android.support.v7.compat.ViewCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -237,7 +238,7 @@ public class ListRowPresenter extends RowPresenter {
                     int dimmedColor = rowViewHolder.mColorDimmer.getPaint().getColor();
                     ((ShadowOverlayContainer) viewHolder.itemView).setOverlayColor(dimmedColor);
                 }
-                viewHolder.itemView.setActivated(rowViewHolder.mExpanded);
+                ViewCompat.setActivated(viewHolder.itemView, rowViewHolder.mExpanded);
             }
 
             @Override

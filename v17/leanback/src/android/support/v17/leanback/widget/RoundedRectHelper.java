@@ -16,6 +16,7 @@ package android.support.v17.leanback.widget;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.v7.compat.ViewCompat;
 import android.view.View;
 
 /**
@@ -73,7 +74,7 @@ final class RoundedRectHelper {
 
         @Override
         public void clearBackground(View view) {
-            view.setBackground(null);
+            ViewCompat.setBackground(view, null);
         }
     }
 

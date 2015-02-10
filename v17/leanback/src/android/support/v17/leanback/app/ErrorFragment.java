@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v17.leanback.R;
 import android.support.v17.leanback.widget.TitleView;
 import android.support.v4.app.Fragment;
+import android.support.v7.compat.ViewCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -229,7 +230,7 @@ public class ErrorFragment extends Fragment {
     private void updateBackground() {
         if (mErrorFrame != null) {
             if (mBackgroundDrawable != null) {
-                mErrorFrame.setBackground(mBackgroundDrawable);
+                ViewCompat.setBackground(mErrorFrame, mBackgroundDrawable);
             } else {
                 mErrorFrame.setBackgroundColor(mErrorFrame.getResources().getColor(
                         mIsBackgroundTranslucent ?
