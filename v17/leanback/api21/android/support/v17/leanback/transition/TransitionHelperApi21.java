@@ -14,6 +14,7 @@
 package android.support.v17.leanback.transition;
 
 import android.R;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.transition.ChangeTransform;
 import android.view.Window;

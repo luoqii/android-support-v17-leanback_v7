@@ -16,8 +16,10 @@
 
 package android.support.v17.leanback.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.support.v17.leanback.R;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -307,7 +309,8 @@ public class BaseCardView extends FrameLayout {
      * @param activated True if the card is ACTIVE, or false if INACTIVE.
      * @see #isActivated()
      */
-    @Override
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@Override
     public void setActivated(boolean activated) {
         if (activated != isActivated()) {
             super.setActivated(activated);
@@ -837,7 +840,8 @@ public class BaseCardView extends FrameLayout {
          *
          * @param source The layout params to copy from.
          */
-        public LayoutParams(LayoutParams source) {
+        @TargetApi(Build.VERSION_CODES.KITKAT)
+		public LayoutParams(LayoutParams source) {
             super(source);
 
             this.viewType = source.viewType;

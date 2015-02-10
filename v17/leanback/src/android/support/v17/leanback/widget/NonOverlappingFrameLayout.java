@@ -13,6 +13,7 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -27,7 +28,8 @@ class NonOverlappingFrameLayout extends FrameLayout {
         super(context, attrs, 0);
     }
 
-    public NonOverlappingFrameLayout(Context context, AttributeSet attrs, int defStyle) {
+    @SuppressLint("Instantiatable")
+	public NonOverlappingFrameLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

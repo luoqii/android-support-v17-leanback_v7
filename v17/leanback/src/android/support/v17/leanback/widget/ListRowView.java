@@ -13,7 +13,9 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.os.Build;
 import android.support.v17.leanback.R;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -35,7 +37,8 @@ public final class ListRowView extends LinearLayout {
         this(context, attrs, 0);
     }
 
-    public ListRowView(Context context, AttributeSet attrs, int defStyle) {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public ListRowView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         LayoutInflater inflater = LayoutInflater.from(context);

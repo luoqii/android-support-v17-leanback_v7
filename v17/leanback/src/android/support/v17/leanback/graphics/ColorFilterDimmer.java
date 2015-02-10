@@ -89,11 +89,11 @@ public final class ColorFilterDimmer {
      * @param view The View to apply the ColorFilter to.
      */
     public void applyFilterToView(View view) {
-        if (mFilter != null) {
-            view.setLayerType(View.LAYER_TYPE_HARDWARE, mPaint);
-        } else {
-            view.setLayerType(View.LAYER_TYPE_NONE, null);
-        }
+//        if (mFilter != null) {
+//            view.setLayerType(View.LAYER_TYPE_HARDWARE, mPaint);
+//        } else {
+//            view.setLayerType(View.LAYER_TYPE_NONE, null);
+//        }
         // FIXME: Current framework has bug that not triggering invalidate when change layer
         // paint.  Will add conditional sdk version check once bug is fixed in released
         // framework.

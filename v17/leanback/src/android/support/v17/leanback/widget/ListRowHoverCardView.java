@@ -13,7 +13,9 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.support.v17.leanback.R;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -38,7 +40,8 @@ public final class ListRowHoverCardView extends LinearLayout {
         this(context, attrs, 0);
     }
 
-    public ListRowHoverCardView(Context context, AttributeSet attrs, int defStyle) {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public ListRowHoverCardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.lb_list_row_hovercard, this);

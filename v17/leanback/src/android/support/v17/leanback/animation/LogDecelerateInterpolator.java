@@ -14,10 +14,13 @@
 package android.support.v17.leanback.animation;
 
 import android.animation.TimeInterpolator;
+import android.annotation.TargetApi;
+import android.os.Build;
 
 /**
  * @hide
  */
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class LogDecelerateInterpolator implements TimeInterpolator {
 
     int mBase;

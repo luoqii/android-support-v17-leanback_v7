@@ -13,7 +13,6 @@
  */
 package android.support.v17.leanback.app;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -38,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.support.v17.leanback.R;
+import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;

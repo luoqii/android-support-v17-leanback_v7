@@ -13,8 +13,10 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -32,7 +34,8 @@ class ControlBar extends LinearLayout {
         super(context, attrs);
     }
 
-    public ControlBar(Context context, AttributeSet attrs, int defStyle) {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public ControlBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

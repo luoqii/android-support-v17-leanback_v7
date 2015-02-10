@@ -13,7 +13,8 @@
  */
 package android.support.v17.leanback.app;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+
 
 /**
  * Fragment used by the background manager.

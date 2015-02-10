@@ -77,13 +77,13 @@ public abstract class AbstractDetailsDescriptionPresenter extends Presenter {
             mSubtitleFontMetricsInt = getFontMetricsInt(mSubtitle);
             mBodyFontMetricsInt = getFontMetricsInt(mBody);
 
-            mTitle.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-                @Override
-                public void onLayoutChange(View v, int left, int top, int right,
-                        int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                    mBody.setMaxLines(mTitle.getLineCount() > 1 ? mBodyMinLines : mBodyMaxLines);
-                }
-            });
+//            mTitle.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+//                @Override
+//                public void onLayoutChange(View v, int left, int top, int right,
+//                        int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+//                    mBody.setMaxLines(mTitle.getLineCount() > 1 ? mBodyMinLines : mBodyMaxLines);
+//                }
+//            });
         }
 
         public TextView getTitle() {
@@ -124,8 +124,8 @@ public abstract class AbstractDetailsDescriptionPresenter extends Presenter {
             hasTitle = false;
         } else {
             vh.mTitle.setVisibility(View.VISIBLE);
-            vh.mTitle.setLineSpacing(vh.mTitleLineSpacing - vh.mTitle.getLineHeight() +
-                    vh.mTitle.getLineSpacingExtra(), vh.mTitle.getLineSpacingMultiplier());
+//            vh.mTitle.setLineSpacing(vh.mTitleLineSpacing - vh.mTitle.getLineHeight() +
+//                    vh.mTitle.getLineSpacingExtra(), vh.mTitle.getLineSpacingMultiplier());
         }
         setTopMargin(vh.mTitle, vh.mTitleMargin);
 
@@ -147,8 +147,8 @@ public abstract class AbstractDetailsDescriptionPresenter extends Presenter {
             vh.mBody.setVisibility(View.GONE);
         } else {
             vh.mBody.setVisibility(View.VISIBLE);
-            vh.mBody.setLineSpacing(vh.mBodyLineSpacing - vh.mBody.getLineHeight() +
-                    vh.mBody.getLineSpacingExtra(), vh.mBody.getLineSpacingMultiplier());
+//            vh.mBody.setLineSpacing(vh.mBodyLineSpacing - vh.mBody.getLineHeight() +
+//                    vh.mBody.getLineSpacingExtra(), vh.mBody.getLineSpacingMultiplier());
 
             if (hasSubtitle) {
                 setTopMargin(vh.mBody, vh.mUnderSubtitleBaselineMargin +
