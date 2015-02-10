@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 /**
  * RowContainerView wraps header and user defined row view
  */
+@SuppressLint("NewApi")
 final class RowContainerView extends LinearLayout {
 
     private ViewGroup mHeaderDock;

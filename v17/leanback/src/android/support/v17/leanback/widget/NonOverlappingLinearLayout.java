@@ -13,10 +13,12 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+@SuppressLint({ "Instantiatable", "NewApi" })
 class NonOverlappingLinearLayout extends LinearLayout {
 
     public NonOverlappingLinearLayout(Context context) {

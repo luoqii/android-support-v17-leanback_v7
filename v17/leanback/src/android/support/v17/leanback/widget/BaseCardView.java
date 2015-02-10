@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.v17.leanback.R;
+import android.support.v7.compat.AnimationCompat;
 import android.support.v7.compat.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -635,7 +636,7 @@ public class BaseCardView extends FrameLayout {
 
     private void cancelAnimations() {
         if (mAnim != null) {
-            mAnim.cancel();
+            AnimationCompat.cancel(mAnim);
             mAnim = null;
         }
     }

@@ -221,9 +221,9 @@ class StreamingTextView extends EditText {
     /**
      * This is required to make the View findable by uiautomator
      */
+	//@Override
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	@Override
-    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+	public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(StreamingTextView.class.getCanonicalName());
     }

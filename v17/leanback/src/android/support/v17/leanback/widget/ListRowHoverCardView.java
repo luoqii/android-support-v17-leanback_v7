@@ -13,6 +13,7 @@
  */
 package android.support.v17.leanback.widget;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 /**
  * ListRowHoverCardView contains a title and description.
  */
+@SuppressLint("NewApi")
 public final class ListRowHoverCardView extends LinearLayout {
 
     private final TextView mTitleView;
@@ -40,7 +42,8 @@ public final class ListRowHoverCardView extends LinearLayout {
         this(context, attrs, 0);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @SuppressLint("NewApi")
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public ListRowHoverCardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         LayoutInflater inflater = LayoutInflater.from(context);

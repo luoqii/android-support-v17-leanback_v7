@@ -630,8 +630,7 @@ abstract class BaseGridView extends RecyclerView {
         return super.dispatchTouchEvent(event);
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	@Override
+	//@Override
     public boolean dispatchGenericFocusedEvent(MotionEvent event) {
         if (mOnMotionInterceptListener != null) {
             if (mOnMotionInterceptListener.onInterceptMotionEvent(event)) {
@@ -683,7 +682,7 @@ abstract class BaseGridView extends RecyclerView {
         mLayoutManager.setPrimaryOverReach(fraction);
     }
 
-    @Override
+    //@Override
     public boolean hasOverlappingRendering() {
         return mHasOverlappingRendering;
     }

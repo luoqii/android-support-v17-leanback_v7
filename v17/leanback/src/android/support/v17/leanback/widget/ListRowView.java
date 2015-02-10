@@ -15,6 +15,7 @@ package android.support.v17.leanback.widget;
 
 import android.os.Build;
 import android.support.v17.leanback.R;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -25,6 +26,7 @@ import android.widget.LinearLayout;
 /**
  * ListRowView contains a horizontal grid view.
  */
+@SuppressLint("NewApi")
 public final class ListRowView extends LinearLayout {
 
     private HorizontalGridView mGridView;

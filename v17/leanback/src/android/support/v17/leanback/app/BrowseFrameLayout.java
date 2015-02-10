@@ -25,6 +25,7 @@ import android.widget.FrameLayout;
  * browse sub fragments.
  *
  */
+@SuppressLint("Instantiatable")
 class BrowseFrameLayout extends FrameLayout {
 
     public interface OnFocusSearchListener {

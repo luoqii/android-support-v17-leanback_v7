@@ -24,6 +24,7 @@ import android.widget.FrameLayout;
  * So we can change left margin of rows while keep the width of rows unchanged without
  * using hardcoded DIPS.
  */
+@SuppressLint("Instantiatable")
 class BrowseRowsFrameLayout extends FrameLayout {
 
     public BrowseRowsFrameLayout(Context context) {
